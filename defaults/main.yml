@@ -1,2 +1,7 @@
 ---
 # defaults file for drupsible.xdebug
+
+# Add new (or override existing) params for xdebug.ini freely after the pipe,
+# literal style! http://www.yaml.org/spec/1.2/spec.html#id2795688
+# Intend with 2 spaces, end with a new line.
+drupsible_xdebug_additional_ini_params: |
