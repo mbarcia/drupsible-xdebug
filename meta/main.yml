@@ -1,0 +1,16 @@
+galaxy_info:
+  author: "Mariano Barcia"
+  license: 'GNU General Public License v3'
+  min_ansible_version: 2.0
+  platforms:
+    - name: Ubuntu
+    - name: Debian
+    - name: CentOS
+    - name: Red Hat Enterprise Linux
+  galaxy_tags:
+  - xdebug
+  - pecl
+  - php
+  - drupal
+  - drupsible
+dependencies: []
