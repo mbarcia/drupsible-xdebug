@@ -1,2 +1,5 @@
 ---
 # vars file for drupsible.xdebug
+xdebug_php_version_default: "{{ (ansible_distribution_release == 'xenial')|ternary('7.0', '5' ) }}"
+xdebug_php_version: "{{ ansible_local.php.version|default(xdebug_php_version_default) }}"
+xdebug_php_etc_base: "{{ (ansible_distribution_release == 'xenial')|ternary('/etc/php/' + xdebug_php_version, '/etc/php5') }}"

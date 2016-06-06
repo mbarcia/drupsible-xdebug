@@ -1,34 +1,50 @@
 ---
 # tasks file for drupsible.xdebug
-- name: Install php5-dev package
+- name: Install php-dev package
   package:
-    name: 'php5-dev'
+    name: 'php{{ xdebug_php_version }}-dev'
     state: 'latest'
-  notify: 'Restart php5-fpm'
+  notify: 'Restart php-fpm'
 
 - name: Install Xdebug
-  pear: 
-    name: "pecl/xdebug" 
+  pear:
+    name: "pecl/xdebug"
     state: present
+
+- name: Make sure mods-available directory is present
+  file:
+    path: '{{ xdebug_php_etc_base }}/mods-available'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
 
 - name: Create Xdebug.ini
   template:
     src: 'xdebug.ini.j2'
-    dest: '/etc/php5/mods-available/xdebug.ini'
+    dest: '{{ xdebug_php_etc_base }}/mods-available/xdebug.ini'
     owner: 'root'
     group: 'root'
     mode: '0644'
 
+- name: Make sure conf.d is present
+  file:
+    path: '{{ xdebug_php_etc_base }}/fpm/conf.d'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
 - name: Configure xdebug.ini for FPM
   file:
-    src: "/etc/php5/mods-available/xdebug.ini"
-    dest: "/etc/php5/fpm/conf.d/20-xdebug.ini"
+    src: "{{ xdebug_php_etc_base }}/mods-available/xdebug.ini"
+    dest: "{{ xdebug_php_etc_base }}/fpm/conf.d/20-xdebug.ini"
     state: link
-  notify: 'Restart php5-fpm'
+  notify: 'Restart php-fpm'
 
 - name: Configure xdebug.ini for CLI
   file:
-    src: "/etc/php5/mods-available/xdebug.ini"
-    dest: "/etc/php5/cli/conf.d/20-xdebug.ini"
+    src: "{{ xdebug_php_etc_base }}/mods-available/xdebug.ini"
+    dest: "{{ xdebug_php_etc_base }}/cli/conf.d/20-xdebug.ini"
     state: link
   when: xdebug_cli_enabled|default(False)|bool
