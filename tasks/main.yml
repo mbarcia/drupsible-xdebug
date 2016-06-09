@@ -48,3 +48,5 @@
     dest: "{{ xdebug_php_etc_base }}/cli/conf.d/20-xdebug.ini"
     state: link
   when: xdebug_cli_enabled|default(False)|bool
+
+- meta: flush_handlers
