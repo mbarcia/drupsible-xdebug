@@ -5,11 +5,13 @@
     name: 'php{{ xdebug_php_version }}-dev'
     state: 'latest'
   notify: 'Restart php-fpm'
+  tags: [ provision ]
 
 - name: Install Xdebug
   pear:
     name: "pecl/xdebug"
     state: present
+  tags: [ provision ]
 
 - name: Make sure mods-available directory is present
   file:
