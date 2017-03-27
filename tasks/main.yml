@@ -4,6 +4,7 @@
   package:
     name: 'php{{ xdebug_php_version }}-dev'
     state: 'latest'
+    use: apt
   notify: 'Restart php-fpm'
   tags: [ provision ]
 
